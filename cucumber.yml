@@ -1,0 +1,11 @@
+default:  --tags ~@fail --profile htmlout
+
+login: --tags @login --tags ~@fail --profile htmlout
+logout: --tags @logout --tags ~@fail --profile htmlout
+drivers: --tags @drivers --tags ~@fail --profile htmlout
+
+positive: --tags @positive --tags ~@fail --profile htmlout
+negative: --tags @negative --tags ~@fail --profile htmlout
+fail: --tags @fail --profile htmlout
+
+htmlout: --format html --out report.html --format pretty
