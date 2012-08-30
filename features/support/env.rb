@@ -3,6 +3,21 @@ require 'watir-webdriver'
 require 'watir-webdriver-performance'
 require 'yaml'
 
+if ENV['HEADLESS']
+	FileUtils.rm 'report.html' if File.exists? 'report.html'
+	FileUtils.rm_rf 'screenshots' if File.exists? 'screenshots'
+	FileUtils.rm 'chromedriver.txt' if File.exists? 'chromedriver.txt'
+	FileUtils.rm 'scenario_run_times.yml' if File.exists? 'scenario_run_times.yml'
+
+	require 'headless'
+	headless = Headless.new
+	headless.start
+	
+	at_exit do
+		headless.destroy
+	end
+end
+
 browser = Watir::Browser.new :chrome
 scenarioRunTimes = []
 
