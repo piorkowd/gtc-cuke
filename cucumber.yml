@@ -1,5 +1,5 @@
 default:  --tags ~@fail --profile htmlout
-jenkins: HEADLESS=true --profile fail
+jenkins: HEADLESS=true --profile default
 
 login: --tags @login --tags ~@fail --profile htmlout
 logout: --tags @logout --tags ~@fail --profile htmlout
