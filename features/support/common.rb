@@ -5,7 +5,7 @@ validPassword = "password"
 
 Given /^I am logged into Zonar$/ do
 	@browser.goto loginUrl
-	@runtime += @browser.performance.summary[:response_time]/1000.0
+	add_runtime
 
 	if (!@browser.link(:text => 'Logout').exists?) then
 		@browser.text_field(:name => 'customer').set validCustomer
@@ -13,6 +13,10 @@ Given /^I am logged into Zonar$/ do
 		@browser.text_field(:name => 'password').set validPassword
 		@browser.button(:name => 'gologin').click
 	end
-	
-	
+end
+
+def add_runtime
+	if ENV['CHROME']
+		@runtime += @browser.performance.summary[:response_time]/1000.0
+	end
 end

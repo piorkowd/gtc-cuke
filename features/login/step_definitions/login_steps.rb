@@ -9,7 +9,7 @@ reportMenuUrl = "https://qa1.zonarsystems.net/dashboard/reports"
 
 Given /^I am on the Zonar login page$/ do
 	@browser.goto loginUrl
-	@runtime += @browser.performance.summary[:response_time]/1000.0
+	add_runtime
 	
 	if (@browser.link(:text => 'Logout').exists?) then
 		@browser.link(:text => 'Logout').click
@@ -48,7 +48,7 @@ end
 
 When /^I click the login button$/ do
 	@browser.button(:name => 'gologin').click
-	@runtime += @browser.performance.summary[:response_time]/1000.0
+	add_runtime
 end
 
 Then /^I should be viewing the reports menu$/ do

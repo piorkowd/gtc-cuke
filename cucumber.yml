@@ -1,5 +1,7 @@
-default:  --tags ~@fail --profile htmlout
-jenkins: HEADLESS=true --profile default --format junit --out junit
+default: --tags ~@fail --profile htmlout
+jenkins: CHROME=true HEADLESS=true --profile default --format junit --out junit
+iphone: IPHONE=true HEADLESS=true --profile default
+chrome: CHROME=true --profile default
 
 login: --tags @login --tags ~@fail --profile htmlout
 logout: --tags @logout --tags ~@fail --profile htmlout

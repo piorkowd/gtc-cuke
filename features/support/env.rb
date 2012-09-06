@@ -1,14 +1,8 @@
 # Test environment setup
 require 'watir-webdriver'
-require 'watir-webdriver-performance'
 require 'yaml'
 
 if ENV['HEADLESS']
-	FileUtils.rm 'report.html' if File.exists? 'report.html'
-	FileUtils.rm_rf 'screenshots' if File.exists? 'screenshots'
-	FileUtils.rm 'chromedriver.txt' if File.exists? 'chromedriver.txt'
-	FileUtils.rm 'scenario_run_times.yml' if File.exists? 'scenario_run_times.yml'
-
 	require 'headless'
 	headless = Headless.new
 	headless.start
@@ -18,8 +12,30 @@ if ENV['HEADLESS']
 	end
 end
 
-browser = Watir::Browser.new :chrome
-scenarioRunTimes = []
+if ENV['CHROME']
+	require 'watir-webdriver-performance'
+
+	browser = Watir::Browser.new :chrome
+	scenarioRunTimes = []
+end
+
+if ENV['IPHONE']
+    require 'sim_launcher'
+    
+    # Start iPhone simulator
+    simulator = SimLauncher::DirectClient.new("/Users/fins/Documents/Zonar/selenium-read-only/iphone/build/Debug-iphonesimulator/iWebDriver.app", "5.0", "iphone")
+    simulator.relaunch
+    
+    # Connect to iPhone simulator
+	driver = Selenium::WebDriver.for :remote, :url => "http://localhost:3001/wd/hub", :desired_capabilities => :iphone
+	browser = Watir::Browser.new driver
+end
+
+# Cleanup old reports
+FileUtils.rm 'report.html' if File.exists? 'report.html'
+FileUtils.rm_rf 'screenshots' if File.exists? 'screenshots'
+FileUtils.rm 'chromedriver.txt' if File.exists? 'chromedriver.txt'
+FileUtils.rm 'scenario_run_times.yml' if File.exists? 'scenario_run_times.yml'
 
 # Run before every scenario
 Before do
@@ -36,15 +52,19 @@ After do |scenario|
 		embed screenshot, 'image/png'
 	end
 	
-	scenarioRunTime = {
-		:scenario => scenario.name.gsub(' ','_').gsub(/[^0-9A-Za-z_]/, ''),
-		:run_time => @runtime
-	}
-	scenarioRunTimes << scenarioRunTime
+	if ENV['CHROME']
+		scenarioRunTime = {
+			:scenario => scenario.name.gsub(' ','_').gsub(/[^0-9A-Za-z_]/, ''),
+			:run_time => @runtime
+		}
+		scenarioRunTimes << scenarioRunTime
+	end
 end
 
 # Test environment teardown
 at_exit do
-	File.open('scenario_run_times.yml', 'w') { |file| file.puts scenarioRunTimes.to_yaml }
+	if ENV['CHROME']
+		File.open('scenario_run_times.yml', 'w') { |file| file.puts scenarioRunTimes.to_yaml }
+	end
 	browser.close
 end
