@@ -1,4 +1,4 @@
-default: --tags ~@fail --profile 
+default: --tags ~@fail --profile htmlout
 
 chrome: CHROME=true --profile default
 iphone: IPHONE=true --profile default
