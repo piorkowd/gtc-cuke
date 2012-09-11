@@ -1,8 +1,13 @@
 require 'cucumber'
 require 'cucumber/rake/task'
 
-Cucumber::Rake::Task.new(:cucumber) do |task|
-	task.profile = 'jenkins'
+Cucumber::Rake::Task.new(:chrome) do |task|
+	task.profile = 'chrome_jenkins'
 end
 
-task :default => :cucumber
+Cucumber::Rake::Task.new(:iphone) do |task|
+	task.profile = 'iphone_jenkins'
+end
+
+task :chromeCI => :chrome
+task :iphoneCI => :iphone
