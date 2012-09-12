@@ -2,15 +2,15 @@
 require 'watir-webdriver'
 require 'yaml'
 
-if ENV['HEADLESS']
-	require 'headless'
-	headless = Headless.new
-	headless.start
+#if ENV['HEADLESS']
+#	require 'headless'
+#	headless = Headless.new
+#	headless.start
 	
-	at_exit do
-		headless.destroy
-	end
-end
+#	at_exit do
+#		headless.destroy
+#	end
+#end
 
 if ENV['CHROME']
 	require 'watir-webdriver-performance'

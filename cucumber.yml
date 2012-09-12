@@ -3,7 +3,8 @@ default: --tags ~@fail --profile htmlout
 chrome: CHROME=true --profile default
 iphone: IPHONE=true --profile default
 
-jenkins: HEADLESS=true --format junit --out junit
+#jenkins: HEADLESS=true --format junit --out junit
+jenkins: --format junit --out junit
 chrome_jenkins: CHROME=true --profile default --profile jenkins
 iphone_jenkins: IPHONE=true --profile default --profile jenkins
 
