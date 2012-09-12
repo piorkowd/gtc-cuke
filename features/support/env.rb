@@ -23,7 +23,7 @@ if ENV['IPHONE']
     require 'sim_launcher'
     
     # Start iPhone simulator
-    simulator = SimLauncher::Client.new("/Users/fins/Documents/Zonar/selenium-read-only/iphone/build/Debug-iphonesimulator/iWebDriver.app", "5.0", "iphone")
+    simulator = SimLauncher::DirectClient.new("/Users/Shared/Jenkins/iWebDriver.app", "5.0", "iphone")
     simulator.relaunch
     
     # Connect to iPhone simulator
