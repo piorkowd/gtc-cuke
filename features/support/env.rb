@@ -25,7 +25,24 @@ if ENV['IPHONE']
     # Start iPhone simulator
     simulator = SimLauncher::DirectClient.new("/Users/Shared/Jenkins/iWebDriver.app", "5.0", "iphone")
     simulator.relaunch
-    
+   
+	# see if iWebDriver is loaded(contact the host)
+	# retry a few times just incase
+	connected = false
+	(0..2).each do
+		begin
+			Net::HTTP.new("localhost", 3001).start
+			connected = true
+			break
+		rescue
+			# sleep for two seconds
+			sleep(2)
+		end
+	end
+
+  unless connected
+    raise 'Could not launch iPhone webdriver'
+  end
     # Connect to iPhone simulator
 	driver = Selenium::WebDriver.for :remote, :url => "http://localhost:3001/wd/hub", :desired_capabilities => :iphone
 	browser = Watir::Browser.new driver
