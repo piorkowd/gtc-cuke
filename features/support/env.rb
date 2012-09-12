@@ -26,7 +26,7 @@ if ENV['IPHONE']
     
     # Start iPhone simulator
 	puts "Launching iOS Simulator"
-    simulator = SimLauncher::DirectClient.new("/Users/Shared/Jenkins/iWebDriver.app", "5.0", "iphone")
+    simulator = SimLauncher::Client.new("/Users/Shared/Jenkins/iWebDriver.app", "5.0", "iphone")
     simulator.relaunch
     
 	puts "Launched iOS Simulator"
