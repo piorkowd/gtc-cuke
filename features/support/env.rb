@@ -2,6 +2,8 @@
 require 'watir-webdriver'
 require 'yaml'
 
+$stdout.sync = true
+
 #if ENV['HEADLESS']
 #	require 'headless'
 #	headless = Headless.new
