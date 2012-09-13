@@ -2,18 +2,10 @@
 require 'watir-webdriver'
 require 'yaml'
 
+# Disable buffered output
 $stdout.sync = true
 
-#if ENV['HEADLESS']
-#	require 'headless'
-#	headless = Headless.new
-#	headless.start
-	
-#	at_exit do
-#		headless.destroy
-#	end
-#end
-
+# Chrome setup
 if ENV['CHROME']
 	require 'watir-webdriver-performance'
 
@@ -21,17 +13,18 @@ if ENV['CHROME']
 	scenarioRunTimes = []
 end
 
+# iPhone simulator setup
 if ENV['IPHONE']
     require 'sim_launcher'
     
     # Start iPhone simulator
 	puts "Launching iOS Simulator"
-    simulator = SimLauncher::DirectClient.new("/Users/Shared/Jenkins/iWebDriver.app", "5.0", "iphone")
+    simulator = SimLauncher::Client.new("/Users/Shared/Jenkins/iWebDriver.app", "5.0", "iphone")
     simulator.relaunch
-    
 	puts "Launched iOS Simulator"
-    # see if iWebDriver is loaded(contact the host)
-    # retry a few times just incase
+	
+    # See if iWebDriver is loaded (contact the host)
+    # Retry a few times just in case
     connected = false
     (0..2).each do
         begin
@@ -70,6 +63,7 @@ end
 
 # Run after every scenario
 After do |scenario|
+	# Capture screenshot if scenario fails
 	if (scenario.failed?) then
 		Dir::mkdir('screenshots') if not File.directory?('screenshots')
 		screenshot = "./screenshots/FAILED_#{scenario.name.gsub(' ','_').gsub(/[^0-9A-Za-z_]/, '')}.png"
@@ -77,6 +71,7 @@ After do |scenario|
 		embed screenshot, 'image/png'
 	end
 	
+	# Capture runtime if using Chrome
 	if ENV['CHROME']
 		scenarioRunTime = {
 			:scenario => scenario.name.gsub(' ','_').gsub(/[^0-9A-Za-z_]/, ''),
@@ -88,8 +83,10 @@ end
 
 # Test environment teardown
 at_exit do
+	# Save runtimes if using Chrome
 	if ENV['CHROME']
 		File.open('scenario_run_times.yml', 'w') { |file| file.puts scenarioRunTimes.to_yaml }
 	end
+
 	browser.close
 end
