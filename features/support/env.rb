@@ -1,22 +1,26 @@
 # Test environment setup
-require 'watir-webdriver'
-require 'yaml'
+require "bundler"
+if ENV['CHROME']
+	Bundler.require(:default, :chrome)
+elsif ENV['IPHONE']
+	Bundler.require(:default, :iphone)
+else
+	Bundler.require(:default)
+end
+
+
 
 # Disable buffered output
 $stdout.sync = true
 
 # Chrome setup
 if ENV['CHROME']
-	require 'watir-webdriver-performance'
-
 	browser = Watir::Browser.new :chrome
 	scenarioRunTimes = []
 end
 
 # iPhone simulator setup
 if ENV['IPHONE']
-    require 'sim_launcher'
-    
     # Start iPhone simulator
 	puts "Launching iOS Simulator"
     simulator = SimLauncher::Client.new("/Users/Shared/Jenkins/iWebDriver.app", "5.0", "iphone")
