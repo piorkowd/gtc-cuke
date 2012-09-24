@@ -1,4 +1,6 @@
-source "http://rubygems.org"
+source "http://rubygems.org/"
+source "http://gems.rubyforge.org/"
+source "http://gems.github.com/"
 
 gem "cucumber", "~> 1.2.1"
 gem "rake", "~> 0.9.2.2"
