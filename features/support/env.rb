@@ -23,14 +23,14 @@ end
 if ENV['IPHONE']
     # Start iPhone simulator
 	puts "Launching iOS Simulator"
-    simulator = SimLauncher::Client.new("/Users/Shared/Jenkins/iWebDriver.app", "5.0", "iphone")
+    simulator = SimLauncher::DirectClient.new("/Users/Jenkins/iWebDriver.app", "5.0", "iphone")
     simulator.relaunch
 	puts "Launched iOS Simulator"
 	
     # See if iWebDriver is loaded (contact the host)
     # Retry a few times just in case
     connected = false
-    (0..2).each do
+    (0..5).each do
         begin
 			puts "Trying to connect to iWebDriver"
             Net::HTTP.new("localhost", 3001).start
