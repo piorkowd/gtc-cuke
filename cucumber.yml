@@ -1,13 +1,9 @@
-default: --tags ~@fail --profile htmlout
+default: --tags ~@fail --profile htmlout --profile junit
 
 chrome: CHROME=true --profile default
 iphone: IPHONE=true --profile default
-
-jenkins: --format junit --out junit
-chrome_jenkins: --profile chrome --profile jenkins
-iphone_jenkins: --profile iphone --profile jenkins
-chrome_jenkins_fail: CHROME=true --profile htmlout --profile jenkins --profile fail
-iphone_jenkins_fail: IPHONE=true --profile htmlout --profile jenkins --profile fail
+chrome_fail: CHROME=true --profile fail --profile htmlout --profile junit
+iphone_fail: IPHONE=true --profile fail --profile htmlout --profile junit
 
 login: --tags @login --tags ~@fail
 logout: --tags @logout --tags ~@fail
@@ -18,3 +14,4 @@ negative: --tags @negative --tags ~@fail
 fail: --tags @fail
 
 htmlout: --format html --out report.html --format pretty
+junit: --format junit --out junit
