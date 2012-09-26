@@ -13,6 +13,7 @@ junit: --format junit --out junit
 login: --tags @login --tags ~@fail
 logout: --tags @logout --tags ~@fail
 drivers: --tags @drivers --tags ~@fail
+assets: --tags @assets --tags ~@fail
 
 positive: --tags @positive --tags ~@fail
 negative: --tags @negative --tags ~@fail
