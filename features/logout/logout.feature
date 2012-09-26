@@ -1,4 +1,4 @@
-@logout
+@logout @chrome
 Feature: Logout
 	In order to prevent misuse
 	As a fleet administrator

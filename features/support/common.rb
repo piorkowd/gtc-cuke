@@ -1,13 +1,18 @@
-loginUrl = "https://qa1.zonarsystems.net/user/login"
+chromeLoginUrl = "https://qa1.zonarsystems.net/user/login"
+mobileLoginUrl = "https://qa1.zonarsystems.net/mobile"
 validCustomer = "dev0002"
 validUsername = "paras"
 validPassword = "password"
 
 Given /^I am logged into Zonar$/ do
-	@browser.goto loginUrl
-	add_runtime
-
-	if (!@browser.link(:text => 'Logout').exists?) then
+	if ENV['CHROME']
+		@browser.goto chromeLoginUrl
+		add_runtime
+	elsif ENV['IPHONE']
+		@browser.goto mobileLoginUrl
+	end
+	
+	if (@browser.button(:name => 'gologin').exists?) then
 		@browser.text_field(:name => 'customer').set validCustomer
 		@browser.text_field(:name => 'username').set validUsername
 		@browser.text_field(:name => 'password').set validPassword

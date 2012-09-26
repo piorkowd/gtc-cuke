@@ -1,4 +1,4 @@
-@drivers
+@drivers @chrome
 Feature: Drivers
 	In order to manage driver information
 	As a fleet administrator

@@ -1,4 +1,4 @@
-@login
+@login @chrome
 Feature: Login
 	In order to interact with the system
 	As a fleet administrator
