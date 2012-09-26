@@ -2,8 +2,8 @@ mobileAssetsUrl = "https://qa1.zonarsystems.net/mobile/assets"
 
 When /^I click the "(.*)" link$/ do |linkName|
 	@browser.link(:text => "#{linkName}").click
-	@browser.html(:class => "ui-mobile ui-loading").wait_until_present
-	@browser.html(:class => "ui-mobile ui-loading").wait_while_present
+	@browser.ul(:class => "ui-listview").li(:class => "btn_as ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-hover-d ui-btn-up-d ui-btn-active").wait_until_present
+	@browser.ul(:class => "ui-listview").li(:class => "btn_as ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-hover-d ui-btn-up-d ui-btn-active").wait_while_present
 	
 	if ENV['CHROME']
 		add_runtime
