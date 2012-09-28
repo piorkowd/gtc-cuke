@@ -6,7 +6,7 @@ When /^I click the logout link$/ do
 end
 
 Then /^I should be on the home page$/ do
-	if (@browser.url != homeUrl) then
+	if @browser.url != homeUrl
 		puts "Expected final URL: #{homeUrl}"
 		puts "Actual final URL: #{@browser.url}"
 		raise

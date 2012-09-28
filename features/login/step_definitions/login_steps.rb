@@ -11,9 +11,7 @@ Given /^I am on the Zonar login page$/ do
 	@browser.goto loginUrl
 	add_runtime
 	
-	if (@browser.link(:text => 'Logout').exists?) then
-		@browser.link(:text => 'Logout').click
-	end
+	@browser.link(:text => 'Logout').click if @browser.link(:text => 'Logout').exists?
 end
 
 When /^I use correct login information$/ do
@@ -52,7 +50,7 @@ When /^I click the login button$/ do
 end
 
 Then /^I should be viewing the reports menu$/ do
-	if (@browser.url != reportMenuUrl) then
+	if @browser.url != reportMenuUrl
 		puts "Expected final URL: #{reportMenuUrl}"
 		puts "Actual final URL: #{@browser.url}"
 		raise
@@ -60,14 +58,14 @@ Then /^I should be viewing the reports menu$/ do
 end
 
 Then /^I should see a login error message$/ do
-	if (!@browser.text.include? loginErrorMessage) then
+	if !@browser.text.include? loginErrorMessage
 		puts "Expected browser text to include: #{loginErrorMessage}"
 		raise
 	end
 end
 
 Then /^I should stay on the login page$/ do
-	if (@browser.url != loginUrl) then
+	if @browser.url != loginUrl
 		puts "Expected final URL: #{loginUrl}"
 		puts "Actual final URL: #{@browser.url}"
 		raise

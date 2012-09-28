@@ -8,9 +8,6 @@ else
 	Bundler.require(:default)
 end
 
-# Disable buffered output
-$stdout.sync = true
-
 # Chrome setup
 if ENV['CHROME']
 	browser = Watir::Browser.new :chrome
@@ -24,9 +21,6 @@ if ENV['IPHONE']
 	
 	# For Jenkins running headed
 	simulator = SimLauncher::DirectClient.new("/Users/Jenkins/iWebDriver.app", "5.0", "iphone")
-	
-	# For Jenkins running headless
-	# simulator = SimLauncher::Client.new("/Users/Shared/Jenkins/iWebDriver.app", "5.0", "iphone")
 	
 	simulator.relaunch
 	puts "Launched iOS Simulator"
@@ -75,8 +69,8 @@ end
 # Run after every scenario
 After do |scenario|
 	# Capture screenshot if scenario fails
-	if (scenario.failed?) then
-		Dir::mkdir('screenshots') if not File.directory?('screenshots')
+	if scenario.failed?
+		Dir::mkdir('screenshots') unless File.directory?('screenshots')
 		screenshot = "./screenshots/FAILED_#{scenario.name.gsub(' ','_').gsub(/[^0-9A-Za-z_]/, '')}.png"
 		browser.screenshot.save(screenshot)
 		embed screenshot, 'image/png'

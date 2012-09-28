@@ -7,7 +7,7 @@ Feature: Assets
 	@positive @mobile
 	Scenario: View asset menu
 		Given I am logged into Zonar
-		When I click the Asset Lookup link
+		When I click the "Asset Lookup" mobile link
 		Then I should be viewing the assets page
 	
 #	@positive @chrome
@@ -16,14 +16,14 @@ Feature: Assets
 #		When I click the "Admin" link
 #		And When I click the 
 
-	@positive
+	@positive @mobile
 	Scenario: Find an asset
 		Given I am logged into Zonar
 		And I am viewing the assets page
 		When I search for Ford assets
 		Then I should only see Ford assets
 		
-	@fail
+	@fail @mobile
 	Scenario: Expect an impossible result 
 		Given I am logged into Zonar
 		And I am viewing the assets page

@@ -12,12 +12,23 @@ Given /^I am logged into Zonar$/ do
 		@browser.goto mobileLoginUrl
 	end
 	
-	if (@browser.button(:name => 'gologin').exists?) then
+	if @browser.button(:name => 'gologin').exists?
 		@browser.text_field(:name => 'customer').set validCustomer
 		@browser.text_field(:name => 'username').set validUsername
 		@browser.text_field(:name => 'password').set validPassword
 		@browser.button(:name => 'gologin').click
 	end
+end
+
+When /^I click the "(.*)" menu link$/ do |linkText|
+	@browser.div(:id => "menuBody").link(:text => linkText).click
+	add_runtime
+end
+
+When /^I click the "(.*)" mobile link$/ do |linkText|
+	# Mobile only
+	@browser.ul(:class => "ui-listview").link(:text => linkText).click
+	@browser.ul(:class => "ui-listview").li(:class => "btn_as ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-hover-d ui-btn-up-d ui-btn-active").wait_while_present
 end
 
 def add_runtime

@@ -7,5 +7,5 @@ Feature: Drivers
 	@positive
 	Scenario: View drivers menu
 		Given I am logged into Zonar
-		When I click the drivers menu link
+		When I click the "Drivers" menu link
 		Then I should see the drivers menu

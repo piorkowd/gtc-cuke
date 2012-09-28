@@ -6,3 +6,5 @@
 *.html
 
 .DS_Store
+
+scenario_run_times.yml
